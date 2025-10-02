@@ -1,6 +1,11 @@
-import Card from '../components/Card';  
+import Card from './Card';  
 
-function Profile({prenom}) {
+interface ProfileProps {
+  prenom: string;
+}
+
+
+function Profile({prenom}: ProfileProps) {
   return (
     <Card>
       <h3>{prenom}</h3>
