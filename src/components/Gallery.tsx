@@ -1,19 +1,31 @@
 import Card from './Card';  
+import Image from 'next/image'
+import {players} from '../app/data/players';
 
 interface ProfileProps {
   prenom: string;
+  nom: string;
+  photo: string;
+  club: string;
+  poste: string;
+  pays: string;
 }
 
 
-function Profile({prenom}: ProfileProps) {
+function Profile({...player}: ProfileProps) {
   return (
     <Card>
-      <h3>{prenom}</h3>
-      <img
-        src="https://i.imgur.com/QIrZWGIs.jpg"
-        alt="Alan L. Hart"
-        className="w-32 h-32 rounded border-4 border-black shadow-lg"
+      <h3>{player.prenom} {player.nom}</h3>
+      <Image 
+        src={player.photo} 
+        alt={player.nom} 
+        width={200} 
+        height={50}
+        className="rounded"
       />
+      <span>Club: {player.club}</span><br/>
+      <span>Poste: {player.poste}</span><br/>
+      <span>Pays: {player.pays}</span>  
     </Card>
   );
 }
@@ -24,11 +36,14 @@ function Profile({prenom}: ProfileProps) {
 export default function Gallery() {
   return (
     <section className="container bg-blue-200 p-6">
-      <h2 className="text-1xl font-bold mb-3">Scientifiques de renom</h2>
+      <h2 className="text-1xl font-bold mb-3">Footballeurs de renom</h2>
       <div className="flex gap-3 justify-center">
-        <Profile prenom="Lucien"/>
-        <Profile prenom="Jean-Pierre"/>
-        <Profile prenom="Eustache"/>
+        {
+          players.map((player) =>(
+            <Profile key={player.id} {...player} />
+          )
+        )
+        }
       </div>
     </section>
   );
